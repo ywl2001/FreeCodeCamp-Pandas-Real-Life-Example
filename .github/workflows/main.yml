@@ -1,0 +1,16 @@
+name: Run .ipynb files on codespace open
+
+on:
+  status:
+    types: [opened]
+
+jobs:
+  run_ipynb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run .ipynb files
+        run: |
+          for file in $(find . -name "*.ipynb"); do
+            jupyter nbconvert --execute "${file}"
+          done
